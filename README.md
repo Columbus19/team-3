@@ -24,6 +24,10 @@ How can apprisen help debt management program participants successfully gradudat
 
 -> We noticed that you missed your payment... how can we help?
 
+<p align="center">
+  <img src="static/apprisen.jpg" width="700px"/>
+</p>
+
 - Inroads - 
 
 A website 
@@ -37,3 +41,7 @@ Donation tab -> submit donation through stripe
 -> Triggers Facebook messenger communication
 
 How would you prioritize the functionality in the powerpoint?
+
+<p align="center">
+  <img src="static/inroads.jpg" width="700px"/>
+</p>
