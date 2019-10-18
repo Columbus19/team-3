@@ -52,7 +52,7 @@ Student perspective
 
 We want to move them through the process more readily (without following up)
 
-Corporate Clients
+Corporate Client
 
 We want them to go to the app and view resumes of students. Sort by major with 3.5 and above in certain geographic locaition -> major, gpa, location, year in school
 
