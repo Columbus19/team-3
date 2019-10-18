@@ -1,6 +1,8 @@
 # Initial Readme
 
-## Non Profit Notes
+# Non Profit Notes
+
+## Apprisen
 
 - [https://www.apprisen.com/](Apprisen) - Building Financial Health
 
@@ -25,25 +27,21 @@ How can apprisen help debt management program participants successfully gradudat
 -> We noticed that you missed your payment... how can we help?
 
 <p align="center">
-  <img src="static/apprisen.jpg" width="700px"/>
+  <img src="static/apprisen.jpg" width="300px"/>
 </p>
 
-- Inroads - 
-
-A website 
+## INROADS
 
 5 Buttons with links to do whats in the powerpoint
 
 Donation tab -> submit donation through stripe
-
-
 
 -> Triggers Facebook messenger communication
 
 How would you prioritize the functionality in the powerpoint?
 
 <p align="center">
-  <img src="static/inroads.jpg" width="700px"/>
+  <img src="static/inroads.jpg" width="300px"/>
 </p>
 
 Leadership development
@@ -82,7 +80,7 @@ Goes into something called simplicity -> for mock interviews
 sugarcrm as a content management system
 
 
-## Problems
+### Problems
 
 Student perspective
 
@@ -106,3 +104,8 @@ Messaging feature within -> a manager can send a request like:
 
 "It's time to schedule a touchpoint for this month" -> You should pick a time for this day
 
+Should go through the database
+
+Student -> Upload resume and transcript -> home address, email, phone, gender, work authorization
+
+It's stored as a file -> maybe some way to parse resumes that are custom uploaded
