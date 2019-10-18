@@ -1,6 +1,4 @@
-# Initial Readme
-
-# Non Profit Notes
+# Team 3
 
 ## Apprisen
 
