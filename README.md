@@ -99,3 +99,10 @@ blue gold and green company colors
 Having reactive design for recruiter & client
 
 Shared mailbox?
+
+Have a way to do phone calls through the app? -> Setup a google hangouts?
+
+Messaging feature within -> a manager can send a request like:
+
+"It's time to schedule a touchpoint for this month" -> You should pick a time for this day
+
