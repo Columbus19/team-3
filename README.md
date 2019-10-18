@@ -2,7 +2,7 @@
 
 ## Apprisen
 
-- [https://www.apprisen.com/](Apprisen) - Building Financial Health
+[https://www.apprisen.com/](Apprisen) - Building Financial Health
 
 Meets 1 on 1 with people struggling financially
 
@@ -107,3 +107,9 @@ Should go through the database
 Student -> Upload resume and transcript -> home address, email, phone, gender, work authorization
 
 It's stored as a file -> maybe some way to parse resumes that are custom uploaded
+
+User id is the primary key in the db
+
+Administrative screen as well?
+
+Leadership development academy is main priority LDA -> Download inroads app, see student recruitment, has leadership development adacemy (Applying and sees track through the process) ***** <- Main priority
