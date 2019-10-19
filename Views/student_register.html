@@ -8,43 +8,46 @@
     <div class="container">
         <br>
         <br>
-        <div class="row justify-content-md-center">
-            <div class="col-md-4 col-md-offset-4">
+        <div class="row">
+          <div class="column">
+            <h3>Personal Information</h3>
+              <div class="form-group">
+                  <label for="firstname">First Name</label>
+                  <input type="text" class="form-control" name="firstname" required placeholder="Enter First Name">
+                </div>
+                <div class="form-group">
+                  <label for="lastname">Last Name</label>
+                  <input type="text" class="form-control"  name="lastname" required placeholder="Enter Last Name">
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" name="email" required placeholder="Enter Email">
+                </div>
+                <div class="form-group">
+                    <label for="Confirm email"> Confirm Email</label>
+                    <input type="Confirm email" class="form-control" name="Confirm email" required placeholder="Confirm Email">
+                  </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" name="password" required placeholder="Enter Password">
+                </div>
+                <div class="form-group">
+                    <label for="referred by">Referred By</label>
+                    <input type="text" class="form-control"  name="referred by">
+                    <small>If you heard about INROADS from another Organization or from <br> 
+                      an INROADS Intern, please enter their name in the above text box.</small>
+                  </div>
+            <div class="column">
                 <form method="POST" action="">
-                  <div class="text-center">
-                    
+                  <div class="text-center"></div>
                         <div class="form-group">
-                          <label for="firstname">First Name</label>
-                          <input type="text" class="form-control" name="firstname" required placeholder="Enter First Name">
+                          <label for="street address"> Street Address</label>
+                          <input type="text" class="form-control" name="street  address" required placeholder="Enter Street Address">
                         </div>
                         <div class="form-group">
-                          <label for="lastname">Last Name</label>
-                          <input type="text" class="form-control"  name="lastname" required placeholder="Enter Last Name">
-                        </div>
-                        <div class="form-group">
-                          <label for="username">Username</label>
-                          <input type="text" class="form-control"  name="username" required placeholder="Enter Username">
-                        </div>
-                        <div class="form-group">
-                          <label for="birthday">Birthday</label>
-                          <input type="date" class="form-control" name="birthday" required placeholder="Enter Birthday">
-                        </div>
-                        <div class="form-group">
-                          <label for="email">Email</label>
-                          <input type="email" class="form-control" name="email" required placeholder="Enter Email">
-                        </div>
-                        <div class="form-group">
-                            <label for="Confirm email"> Confirm Email</label>
-                            <input type="Confirm email" class="form-control" name="Confirm email" required placeholder="Confirm Email">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" name="city" required placeholder="Enter City">
                           </div>
-                        <div class="form-group">
-                          <label for="password">Password</label>
-                          <input type="password" class="form-control" name="password" required placeholder="Enter Password">
-                        </div>
-                        <div class="form-group">
-                          <label for="address">Address</label>
-                          <input type="text" class="form-control" name="address" required placeholder="Enter Address">
-                        </div>
                         <div class="form-group">
                             <label for="level">Select Classification Level</label>
                             <select class="form-control" name="level" required>
