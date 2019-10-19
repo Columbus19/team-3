@@ -163,7 +163,7 @@ def add_application():
     application_id = application.insert({'first_name': first_name, 'last_name': last_name, "region": region,"candidate_type": candidate_type, "academic_year": academic_year, "major": major, "career_interest": career_interest, "gpa": gpa, "college_name": college_name, "phone_number": phone_number, "email": email})
     new_application = application.find_one({'_id' : application_id})
 
-    return jsonify({'result' : "output"})
+    return jsonify({'result' : "success"})
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
