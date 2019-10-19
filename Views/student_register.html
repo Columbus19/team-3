@@ -23,6 +23,15 @@
                   <label for="lastname">Last Name</label>
                   <input type="text" class="form-control"  name="lastname" required placeholder="Enter Last Name">
                 </div>
+                
+                <div class="form-group">
+                    <label for="referred by">Referred By</label>
+                    <input type="text" class="form-control"  name="referred by">
+                    <small>If you heard about INROADS from another Organization or from <br> 
+                      an INROADS Intern, please enter their name in the above text box.</small>
+                  </div>
+
+                <h3>Account Creation</h3>
                 <div class="form-group">
                   <label for="email">Email</label>
                   <input type="email" class="form-control" name="email" required placeholder="Enter Email">
@@ -31,18 +40,13 @@
                     <label for="Confirm email"> Confirm Email</label>
                     <input type="Confirm email" class="form-control" name="Confirm email" required placeholder="Confirm Email">
                   </div>
-                <div class="form-group">
-                    <label for="referred by">Referred By</label>
-                    <input type="text" class="form-control"  name="referred by">
-                    <small>If you heard about INROADS from another Organization or from <br> 
-                      an INROADS Intern, please enter their name in the above text box.</small>
-                  </div>
+               
                   </form>
                 </form>
             </div>
         </div>
 
-        <br>
+
         <div class="row">
           <div class="column">
             <h3>Education</h3>
@@ -310,7 +314,7 @@
                         <span class="field-validation-valid" data-valmsg-for="CareerInterest" data-valmsg-replace="true"></span>
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                             <label for="level">Second Career Interest</label>
                             <select class="form-control" data-val="true" data-val-required="The First Career Interest field is required." id="CareerInterest" name="CareerInterest"><option selected="selected" value="">-Select One-</option>
                                 <option value="Actuary">Actuary</option>
@@ -406,9 +410,9 @@
                                 <option value="Web_Design">Web Design</option>
                             </select>
                         <span class="field-validation-valid" data-valmsg-for="CareerInterest" data-valmsg-replace="true"></span>
-                        </div>
+                        </div> -->
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="level">Third Career Interest</label>
                                 <select class="form-control" data-val="true" data-val-required="The First Career Interest field is required." id="CareerInterest" name="CareerInterest"><option selected="selected" value="">-Select One-</option>
                                     <option value="Actuary">Actuary</option>
@@ -504,7 +508,7 @@
                                     <option value="Web_Design">Web Design</option>
                                 </select>
                             <span class="field-validation-valid" data-valmsg-for="CareerInterest" data-valmsg-replace="true"></span>
-                        </div>
+                        </div> -->
 
                         <div>
                             <label for="level">State Of Your College/University</label>
@@ -528,12 +532,23 @@
                                         <option value="Clemson University">Clemson University</option>
                                         </select>
                                 </div>
-                        </div>
-                        <br>
-                          <button type="next" class="btn btn-primary" value="save">Next</button>
-                        <div>
-                            <button type="button" class="btn btn-link"><a href="canel">Cancel<a></button>
-                          </div>
+                                <br>
+                                <h3>Method of Notification</h3>
+                                <div class="form-group">
+                                    <label for="Notification">Choose A Way To Be Notified </label>
+                                          <select class="form-control" data-val="true" data-val-required="The method of being notified is required." id="Notification" name="Notification"><option selected="selected" value="">-Select One-</option>
+                                              <option value="Email"> Email</option>
+                                              <option value="SMS"> SMS
+                                              <small>(Standard rates apply)</small>
+                                              </option>
+                                  </div>
+
+                                  <button type="button">Click Me!</button>
+                              <button type="next" class="btn btn-primary" value="save">Next</button>
+                            <div>
+                                <button type="button" class="btn btn-link"><a href="canel">Cancel<a></button>
+                              </div>
+                          
                       </form>
                 </form>
             </div>
