@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, url_for, redirect, Markup, jsonify, make_response, send_from_directory, session
+from flask import Flask, render_template, request, url_for, redirect, Markup, jsonify, make_response, send_from_directory, session, Response
 from flask import Flask, request, redirect, jsonify
 import os
 from werkzeug.utils import secure_filename
+import time
+import scanImage
 
 
 app = Flask(__name__, static_url_path='/static')
@@ -10,11 +12,11 @@ app = Flask(__name__, static_url_path='/static')
 
 
 app.config["UPLOAD_FOLDER"] = "resumes"
-
+PATH_TO_TEST_IMAGES_DIR = './images'
 
 @app.route("/upload")
 def uploadFile():
-    return render_template("upload.html")
+    return render_template("resumeUpload.html")
 
 # save the image as a picture
 @app.route('/image', methods=['POST'])
@@ -23,8 +25,11 @@ def image():
     i = request.files['image']  # get the image
     f = ('%s.jpeg' % time.strftime("%Y%m%d-%H%M%S"))
     i.save('%s/%s' % (PATH_TO_TEST_IMAGES_DIR, f))
-
+    scanImage.save_image('%s/%s' % (PATH_TO_TEST_IMAGES_DIR, f))
     return Response("%s saved" % f)
+
+# def modify_resume(resumeFile):
+
 
 
 @app.route("/sendfile", methods=["POST"])
