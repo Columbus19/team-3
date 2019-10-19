@@ -96,6 +96,10 @@ def test():
 def login():
 	return render_template("login.html")
 
+@app.route('/contactmentor', methods=['GET'])
+def contactmentor():
+	return render_template("contact_mentor.html")
+
 @app.route('/student_login', methods=['GET'])
 def student_login():
 	return render_template("student_login.html")
