@@ -1,5 +1,0 @@
-.required-field::after {
-    content: "*";
-    color: red;
-    margin-left:2px
-  }
