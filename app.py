@@ -7,7 +7,12 @@ try:
     from keys import *
 except:
     pass
+try:
+    from flask_sockets import Sockets
+except:
+    pass
 import requests
+import datetime
 #import scanImage
 
 
@@ -16,6 +21,10 @@ app.config['MONGO_DBNAME'] = 'Cluster0'
 app.config['MONGO_URI'] = 'mongodb+srv://Shinvalor:MxUagWGzWGG9l0cU@cluster0-z8nxe.mongodb.net/test?retryWrites=true&w=majority'
 
 mongo = PyMongo(app)
+
+sockets = Sockets(app)
+
+
 
 emails = {
 "jpmc.com": "JP Morgan & Chase",
@@ -29,6 +38,33 @@ Thanks for signing up with INROADS, {0}!
 
 You are now subscribed to our automated status messages."""
 
+CLIENT_SUCCESS_PAGE = """
+<div class="text-center">
+    <!-- Button HTML (to Trigger Modal) -->
+    <a href="#myModal" class="trigger-btn" id="openVal" data-toggle="modal"></a>
+</div>
+
+<!-- Modal HTML -->
+<div id="myModal" class="modal show">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box" style="background-color: {1}">
+                    <i class="material-icons">&#xE876;</i>
+                </div>              
+                <h4 class="modal-title">Awesome!</h4>   
+            </div>
+            <div class="modal-body">
+                <p class="text-center">{0}</p>
+            </div>
+            <div class="modal-footer">
+                <button style="background: {1}" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div> 
+"""
+
 student_info = {
 }
 
@@ -37,9 +73,34 @@ LOGINS = []
 app.config["UPLOAD_FOLDER"] = "resumes"
 PATH_TO_TEST_IMAGES_DIR = './images'
 
+HISTORY = ["progress"]
+
+@sockets.route('/echo')
+def echo_socket(ws):
+    prev = "AYYY"
+    while True:
+        #message = ws.receive()
+        if HISTORY[-1] != prev:
+            if HISTORY[-1] == "progress":
+                message = "You application is currently in progress"
+                ws.send(CLIENT_SUCCESS_PAGE.format(message, "#ffc107"))
+            elif HISTORY[-1] == "approved":
+                message = "Your application has been approved"
+                ws.send(CLIENT_SUCCESS_PAGE.format(message, "#5cb85c"))
+            prev = HISTORY[-1]
+        time.sleep(.1)
+
 @app.route("/upload")
 def uploadFile():
     return render_template("resumeUpload.html")
+
+@app.route("/change")
+def change():
+    if HISTORY[-1] != "approved":
+        HISTORY[-1] = "approved"
+    else:
+        HISTORY[-1] = "progress"
+    return HISTORY[-1]
 
 # save the image as a picture
 @app.route('/image', methods=['POST'])
