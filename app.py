@@ -7,7 +7,13 @@ try:
     from keys import *
 except:
     pass
+try:
+    from flask_sockets import Sockets
+except:
+    pass
 import requests
+import datetime
+import random
 #import scanImage
 
 
@@ -16,6 +22,10 @@ app.config['MONGO_DBNAME'] = 'Cluster0'
 app.config['MONGO_URI'] = 'mongodb+srv://Shinvalor:MxUagWGzWGG9l0cU@cluster0-z8nxe.mongodb.net/test?retryWrites=true&w=majority'
 
 mongo = PyMongo(app)
+
+sockets = Sockets(app)
+
+
 
 emails = {
 "jpmc.com": "JP Morgan & Chase",
@@ -29,17 +39,154 @@ Thanks for signing up with INROADS, {0}!
 
 You are now subscribed to our automated status messages."""
 
+CLIENT_SUCCESS_PAGE = """
+<div class="text-center">
+    <!-- Button HTML (to Trigger Modal) -->
+    <a href="#myModal" class="trigger-btn" id="openVal" data-toggle="modal"></a>
+</div>
+
+<!-- Modal HTML -->
+<div id="myModal" class="modal show">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box" style="background-color: {1}">
+                    <i class="material-icons">&#xE876;</i>
+                </div>              
+                <h4 class="modal-title">Awesome!</h4>   
+            </div>
+            <div class="modal-body">
+                <p class="text-center">{0}</p>
+            </div>
+            <div class="modal-footer">
+                <button style="background: {1}" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div> 
+"""
+
+STATUS_UPDATE = """
+Congratulations!  Your application has been approved!
+
+You now have access to the careers site to view internship/fulltime opportunties
+"""
+
+RESUME_BOX = """
+<div class="panel panel-success">
+        <div class="panel-heading">{0}</div>
+        <div class="panel-body"><img src="https://placehold.it/150x80?text=Resume" class="img-responsive" style="width:100%" alt="Image"></div>
+        <div class="panel-footer"><center><button type="button" class="btn btn-primary" onclick="view();" data-toggle="modal" data-target="#exampleModal">
+  View Resume
+</button></center></div>
+      </div>
+      """
+
+BLANK_CONTAINER_VAL = """
+<center><h1>NO RESUMES TO REVIEW</h1></center>
+"""
+
+CONTAINER_VAL = """
+<div class="row">
+    <div class="col-sm-4">
+      
+      {0}
+
+    </div>
+
+    <div class="col-sm-4"> 
+
+    {1}
+
+    </div>
+    
+    <div class="col-sm-4"> 
+
+    {2}
+
+    </div>
+
+  </div>
+</div><br>
+
+
+<div class="container">    
+  <div class="row">
+    <div class="col-sm-4">
+      
+    </div>
+
+    <div class="col-sm-4"> 
+    </div>
+    
+    <div class="col-sm-4"> 
+    </div>
+
+  </div>
+"""
+
+VIEWED_MESSAGE = """
+You resume has been viewed by a recruiter at {0}
+
+Thank you for using INROADS!
+"""
+
 student_info = {
 }
 
 LOGINS = []
 
+RESUMES = [None]
+
 app.config["UPLOAD_FOLDER"] = "resumes"
 PATH_TO_TEST_IMAGES_DIR = './images'
+
+HISTORY = ["progress"]
+
+@sockets.route('/echo')
+def echo_socket(ws):
+    prev = "AYYY"
+    while True:
+        #message = ws.receive()
+        if HISTORY[-1] != prev:
+            if HISTORY[-1] == "progress":
+                message = "You application is currently in progress"
+                ws.send(CLIENT_SUCCESS_PAGE.format(message, "#ffc107"))
+            elif HISTORY[-1] == "approved":
+                message = "Your application has been approved"
+                ws.send(CLIENT_SUCCESS_PAGE.format(message, "#5cb85c"))
+            prev = HISTORY[-1]
+        time.sleep(.1)
+
+@sockets.route('/admin')
+def admin_socket(ws):
+    prev = "AYYY"
+    while True:
+        #message = ws.receive()
+        if RESUMES[-1] != prev:
+            if RESUMES[-1] == None:
+                message = BLANK_CONTAINER_VAL
+                ws.send(message)
+            else:
+                message = CONTAINER_VAL.format(RESUME_BOX.format(RESUMES[-1]), "", "")
+                # message = "You application is currently in progress"
+                ws.send(message)
+            prev = RESUMES[-1]
+        time.sleep(.1)
 
 @app.route("/upload")
 def uploadFile():
     return render_template("resumeUpload.html")
+
+@app.route("/change")
+def change():
+    if HISTORY[-1] != "approved":
+        HISTORY[-1] = "approved"
+    else:
+        HISTORY[-1] = "progress"
+    RESUMES.append(random.choice(["Christopher Lambert", "bob", "james"]))
+    statusUpdate()
+    return HISTORY[-1]
 
 # save the image as a picture
 @app.route('/image', methods=['POST'])
@@ -50,6 +197,10 @@ def image():
     i.save('%s/%s' % (PATH_TO_TEST_IMAGES_DIR, f))
     scanImage.save_image('%s/%s' % (PATH_TO_TEST_IMAGES_DIR, f))
     return Response("%s saved" % f)
+
+@app.route('/admin', methods=['GET'])
+def admin():
+    return render_template("admin.html")
 
 # def modify_resume(resumeFile):
 
@@ -90,6 +241,10 @@ def index():
 def student():
 	return render_template("student.html")
 
+@app.route('/viewResumes', methods=['GET'])
+def viewResumes():
+    return render_template("viewResumes.html")
+
 @app.route('/studentRegistration', methods=['GET'])
 def studentRegistration():
 	return render_template("student_register.html")
@@ -129,6 +284,21 @@ def submitPerson():
     return redirect(url_for('con'))
     return jsonify(request.args)
 
+@app.route('/view', methods=['GET'])
+def viewed():
+    send_text(VIEWED_MESSAGE.format("JP Morgan & Chase co."), "8645674106") 
+    return ""
+
+@app.route('/statusUpdate', methods=['GET'])
+def statusUpdate():
+    send_text(STATUS_UPDATE, "8645674106") 
+    return ""
+
+@app.route('/selected', methods=['GET'])
+def selected():
+    send_text(SELECTED_MESSAGE, "8645674106") 
+    return ""
+
 @app.route('/contactmentor', methods=['GET'])
 def contactmentor():
 	return render_template("contact_mentor.html")
@@ -136,6 +306,10 @@ def contactmentor():
 @app.route('/student_login', methods=['GET'])
 def student_login():
 	return render_template("student_login.html")
+
+@app.route('/LDA', methods=['GET'])
+def LDA():
+    return render_template("LDA.html")
 
 @app.route('/congrats', methods=['GET'])
 def con():
