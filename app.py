@@ -8,8 +8,17 @@ import scanImage
 
 app = Flask(__name__, static_url_path='/static')
 
+emails = {
+"jpmc.com": "JP Morgan & Chase",
+"facebook.com": "Facebook",
+"google.com": "Google",
+"facebook.com": "Facebook",
+}
 
+student_info = {
+}
 
+LOGINS = []
 
 app.config["UPLOAD_FOLDER"] = "resumes"
 PATH_TO_TEST_IMAGES_DIR = './images'
@@ -30,8 +39,6 @@ def image():
 
 # def modify_resume(resumeFile):
 
-
-
 @app.route("/sendfile", methods=["POST"])
 def send_file():
     fileob = request.files["file2upload"]
@@ -44,7 +51,6 @@ def send_file():
         pass
 
     return "successful_upload"
-
 
 @app.route("/filenames", methods=["GET"])
 def get_filenames():
@@ -62,7 +68,6 @@ def get_filenames():
     return_dict = dict(filenames=filenames)
     return jsonify(return_dict)
 
-
 @app.route('/', methods=['GET'])
 def index():
 	return render_template("index.html")
@@ -73,13 +78,15 @@ def student():
 
 @app.route('/studentRegistration', methods=['GET'])
 def studentRegistration():
-	return "Student Registration"
+	return render_template("student_register.html")
 
 @app.route('/alumniRegistration', methods=['GET'])
 def alumniRegistration():
-	return "alumni Registration"
+	return render_template("client_login.html")
 
-
+@app.route('/client_login', methods=['GET'])
+def client_login_page():
+    return render_template("client_login.html")
 
 @app.route('/test', methods=['GET'])
 def test():
@@ -89,10 +96,27 @@ def test():
 def login():
 	return render_template("login.html")
 
-
 @app.route('/student_login', methods=['GET'])
 def student_login():
 	return render_template("student_register.html")
+
+@app.route('/student_info', methods=["GET"])
+def get_student_info():
+    x = request.args.get('student', "")
+    return jsonify(student_info[x])
+
+
+@app.route('/clientDashboard', methods=['GET'])
+def clientDashboard():
+    recruiterCompany = request.args.get('user', "")
+    if "@" in recruiterCompany:
+        for k, v in emails.iteritems():
+            if recruiterCompany.partition("@")[2].lower() == k.lower():
+                recruiterCompany = v
+    
+    LOGINS.append(recruiterCompany)
+
+    return render_template("clientDashboard.html", company=recruiterCompany)
 
 
 
