@@ -123,6 +123,7 @@ def login():
 @app.route('/submitPerson', methods=['GET'])
 def submitPerson():
     send_text(SIGN_UP_MESSAGE.format(request.args.get("firstname")),request.args.get("phoneNumber")) 
+    return redirect(url_for('con'))
     return jsonify(request.args)
 
 @app.route('/contactmentor', methods=['GET'])
@@ -135,7 +136,7 @@ def student_login():
 
 @app.route('/congrats', methods=['GET'])
 def con():
-	return render_template("congrats_notification.html")
+	return render_template("congrats.html")
 
 @app.route('/con', methods=['GET'])
 def congrats():
