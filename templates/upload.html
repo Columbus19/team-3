@@ -31,6 +31,13 @@
   <link href="/static/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/static/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+    <link rel="stylesheet" href="/static/app.css">
   <style>
     .bg-white {
       background-color: #6a8bb3 !important;
@@ -43,7 +50,7 @@
   
     <!-- End Navbar -->
     <!-- Header -->
-    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="droparea header bg-gradient-primary pb-8 pt-5 pt-md-8">
       <center>
           <img style="margin-top: -30px;" src="/static/logo.png">
         </center>
@@ -94,7 +101,7 @@
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
-                  <div onclick="window.location.href = '../alumniRegistration';" class="row">
+                  <div onclick="alert('Hello')" class="row">
                     <div class="col">
                       <center><h1>I am a Client</h1></center>
                     </div>
@@ -150,6 +157,59 @@
         application: "argon-dashboard-free"
       });
   </script>
+  <script>
+    $(function(){
+
+    var refreshFilenameList = function(data){
+        var templateText = $("#tableTemplate").html();
+        var template = Handlebars.compile(templateText);
+        var renderedText = template(data);
+        var renderedDom = $(renderedText);
+        $("#tablearea").empty();
+        $("#tablearea").append(renderedDom);
+    };
+
+    var fileUploadSuccess = function(data){
+        var url = "/filenames";
+        var promise = $.get(url);
+        promise.then(refreshFilenameList);
+    };
+
+    var fileUploadFail = function(data){};
+
+    var dragHandler = function(evt){
+        evt.preventDefault();
+    };
+
+    var dropHandler = function(evt){
+        evt.preventDefault();
+        var files = evt.originalEvent.dataTransfer.files;
+
+        var formData = new FormData();
+        formData.append("file2upload", files[0]);
+
+        var req = {
+            url: "/sendfile",
+            method: "post",
+            processData: false,
+            contentType: false,
+            data: formData
+        };
+
+        var promise = $.ajax(req);
+        promise.then(fileUploadSuccess, fileUploadFail);
+    };
+
+    var dropHandlerSet = {
+        dragover: dragHandler,
+        drop: dropHandler
+    };
+
+    $(".droparea").on(dropHandlerSet);
+
+    fileUploadSuccess(false); // called to ensure that we have initial data
+});
+</script>
 </body>
 
 </html>
