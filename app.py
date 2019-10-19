@@ -98,7 +98,7 @@ def login():
 
 @app.route('/student_login', methods=['GET'])
 def student_login():
-	return render_template("student_register.html")
+	return render_template("student_login.html")
 
 @app.route('/student_info', methods=["GET"])
 def get_student_info():
