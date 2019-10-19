@@ -81,3 +81,8 @@ User id is the primary key in the db
 Administrative screen as well?
 
 Leadership development academy is main priority LDA -> Download inroads app, see student recruitment, has leadership development adacemy (Applying and sees track through the process) **\*** <- Main priority
+
+
+###
+
+Use MIT hackathon voting technique to reduce bias
