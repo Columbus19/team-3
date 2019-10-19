@@ -165,6 +165,17 @@ def add_application():
 
     return jsonify({'result' : "success"})
 
+@app.route('/resume/<filename>', methods=['GET'])
+def get_all_resumes(filename):
+    return mongo.send_file(filename)
+
+@app.route('/resume', methods=['POST'])
+def add_resume():
+    if 'resume' in request.files:
+        resume = request.files['resume']
+        mongo.save_file(resume.filename,resume)
+    return "Done"
+
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
 
