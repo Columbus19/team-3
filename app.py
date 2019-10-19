@@ -7,5 +7,25 @@ app = Flask(__name__, static_url_path='/static')
 def index():
 	return render_template("index.html")
 
+@app.route('/student', methods=['GET'])
+def student():
+	return render_template("student.html")
+
+@app.route('/studentRegistration', methods=['GET'])
+def studentRegistration():
+	return "Student Registration"
+
+
+@app.route('/alumniRegistration', methods=['GET'])
+def alumniRegistration():
+	return "alumni Registration"
+
+
+
+@app.route('/test', methods=['GET'])
+def test():
+	return "<h1>testing hey</h1>"
+
 if __name__ == '__main__':
-	app.run(host='127.0.0.1', port=5000)
+	app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
+
