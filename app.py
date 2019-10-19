@@ -163,7 +163,18 @@ def add_application():
     application_id = application.insert({'first_name': first_name, 'last_name': last_name, "region": region,"candidate_type": candidate_type, "academic_year": academic_year, "major": major, "career_interest": career_interest, "gpa": gpa, "college_name": college_name, "phone_number": phone_number, "email": email})
     new_application = application.find_one({'_id' : application_id})
 
-    return jsonify({'result' : "output"})
+    return jsonify({'result' : "success"})
+
+@app.route('/resume/<filename>', methods=['GET'])
+def get_all_resumes(filename):
+    return mongo.send_file(filename)
+
+@app.route('/resume', methods=['POST'])
+def add_resume():
+    if 'resume' in request.files:
+        resume = request.files['resume']
+        mongo.save_file(resume.filename,resume)
+    return "Done"
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
