@@ -104,10 +104,19 @@ def contactmentor():
 def student_login():
 	return render_template("student_login.html")
 
+# @app.route('/con', methods=['GET'])
+# def con():
+# 	return render_template("congrats_notification.html")
+
+# @app.route('/congrats', methods=['GET'])
+# def congrats():
+# 	return render_template("congrats.html")
+
 @app.route('/student_info', methods=["GET"])
 def get_student_info():
     x = request.args.get('student', "")
     return jsonify(student_info[x])
+
 
 
 @app.route('/clientDashboard', methods=['GET'])
