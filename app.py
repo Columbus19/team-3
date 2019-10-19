@@ -112,6 +112,10 @@ def image():
     scanImage.save_image('%s/%s' % (PATH_TO_TEST_IMAGES_DIR, f))
     return Response("%s saved" % f)
 
+@app.route('/admin', methods=['GET'])
+def admin():
+    return render_template("admin.html")
+
 # def modify_resume(resumeFile):
 
 @app.route("/sendfile", methods=["POST"])
