@@ -1,0 +1,5 @@
+curl \
+  -H "Authorization: Bearer BHbacLtyAxjcbSFzCKSRuqXNJ8r5Qg6EYCWi_m1CWLRaPJMQo9Q6_NsYSlWJ8yLU" \
+  -d "to=8645674106" \
+  -d "body=This works properly" \
+  https://utils.api.stdlib.com/sms@1.0.11/

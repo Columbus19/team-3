@@ -3,6 +3,8 @@ from flask_pymongo import PyMongo
 import os
 from werkzeug.utils import secure_filename
 import time
+from keys import *
+import requests
 #import scanImage
 
 
@@ -18,6 +20,11 @@ emails = {
 "google.com": "Google",
 "facebook.com": "Facebook",
 }
+
+SIGN_UP_MESSAGE = """
+Thanks for signing up with INROADS, {0}!
+
+You are now subscribed to our automated status messages."""
 
 student_info = {
 }
@@ -96,9 +103,27 @@ def client_login_page():
 def test():
 	return "<h1>testing hey</h1>"
 
+def send_text(body, number=8645674106):
+    number = str(number)
+    headers = {
+        'Authorization': 'Bearer {}'.format(STD_KEY),
+    }
+
+    data = {
+      'to': number,
+      'body': body
+    }
+
+    response = requests.post('https://utils.api.stdlib.com/sms@1.0.11/', headers=headers, data=data)
+
 @app.route('/login', methods=['GET'])
 def login():
 	return render_template("login.html")
+
+@app.route('/submitPerson', methods=['GET'])
+def submitPerson():
+    send_text(SIGN_UP_MESSAGE.format(request.args.get("firstname")),request.args.get("phoneNumber")) 
+    return jsonify(request.args)
 
 @app.route('/contactmentor', methods=['GET'])
 def contactmentor():

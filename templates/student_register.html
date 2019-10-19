@@ -213,6 +213,7 @@
 
         <br>
         <br>
+        <form action="/submitPerson" id="my_form">
         <div class="row">
           <div class="column">
             <h3>Personal Information</h3>
@@ -245,9 +246,10 @@
                     <label for="Confirm email"> Confirm Email</label>
                     <input type="Confirm email" class="form-control" name="Confirm email" required placeholder="Confirm Email">
                   </div>
-               
-                  </form>
-                </form>
+               <div class="form-group">
+                  <label for="phoneNumber">Phone</label>
+                  <input type="email" class="form-control" name="phoneNumber" required placeholder="Enter Phone">
+                </div>
             </div>
         </div>
 
@@ -748,7 +750,7 @@
                                               </option>
                                   </div>
 
-                                  <button   class="btn btn-primary" type="button"><a  style="text-decoration: none; color:white;"href=con>Sumbit</button></a>
+                                  <button   class="btn btn-primary" type="button"><a  style="text-decoration: none; color:white;" onclick="document.getElementById('my_form').submit();">Sumbit</button></a>
                               <button type="next" class="btn btn-primary" value="save">Cancel</button>
                           
                           
