@@ -1,12 +1,16 @@
 from flask import Flask, render_template, request, url_for, redirect, Markup, jsonify, make_response, send_from_directory, session, Response
-from flask import Flask, request, redirect, jsonify
+from flask_pymongo import PyMongo
 import os
 from werkzeug.utils import secure_filename
 import time
 #import scanImage
 
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__)
+app.config['MONGO_DBNAME'] = 'Cluster0'
+app.config['MONGO_URI'] = 'mongodb+srv://Shinvalor:MxUagWGzWGG9l0cU@cluster0-z8nxe.mongodb.net/test?retryWrites=true&w=majority'
+
+mongo = PyMongo(app)
 
 emails = {
 "jpmc.com": "JP Morgan & Chase",
@@ -117,8 +121,6 @@ def get_student_info():
     x = request.args.get('student', "")
     return jsonify(student_info[x])
 
-
-
 @app.route('/clientDashboard', methods=['GET'])
 def clientDashboard():
     recruiterCompany = request.args.get('user', "")
@@ -131,7 +133,37 @@ def clientDashboard():
 
     return render_template("clientDashboard.html", company=recruiterCompany)
 
+@app.route('/application', methods=['GET'])
+def get_all_applications():
+    applications = mongo.db.applications 
 
+    output = []
+
+    for application in applications.find():
+        output.append({'first_name': application['first_name'], 'last_name': application['last_name'], 'region': application['region'], 'candidate_type': application['candidate_type'], 'academic_year': application['academic_year'], 'major': application['major'], 'career_interest': application['career_interest'], 'gpa': application['gpa'], 'college_name': application['college_name'], 'phone_number': application['phone_number'], 'email': application['email']})
+
+    return jsonify({'result' : output})
+
+@app.route('/application', methods=['POST'])
+def add_application():
+    application = mongo.db.applications
+
+    first_name = request.json['first_name']
+    last_name = request.json['last_name']
+    region = request.json['region']
+    candidate_type = request.json['candidate_type']
+    academic_year = request.json['academic_year']
+    major = request.json['major']
+    career_interest = request.json['career_interest']
+    gpa = request.json['gpa']
+    college_name = request.json['college_name']
+    phone_number = request.json['phone_number']
+    email = request.json['email']
+
+    application_id = application.insert({'first_name': first_name, 'last_name': last_name, "region": region,"candidate_type": candidate_type, "academic_year": academic_year, "major": major, "career_interest": career_interest, "gpa": gpa, "college_name": college_name, "phone_number": phone_number, "email": email})
+    new_application = application.find_one({'_id' : application_id})
+
+    return jsonify({'result' : "output"})
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
