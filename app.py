@@ -202,6 +202,10 @@ def contactmentor():
 def student_login():
 	return render_template("student_login.html")
 
+@app.route('/LDA', methods=['GET'])
+def LDA():
+    return render_template("LDA.html")
+
 @app.route('/congrats', methods=['GET'])
 def con():
 	return render_template("congrats.html")
