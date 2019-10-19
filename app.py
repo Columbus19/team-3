@@ -3,7 +3,10 @@ from flask_pymongo import PyMongo
 import os
 from werkzeug.utils import secure_filename
 import time
-from keys import *
+try:
+    from keys import *
+except:
+    pass
 import requests
 #import scanImage
 
