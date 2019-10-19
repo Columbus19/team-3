@@ -473,7 +473,8 @@
                         <div>
                             <label for="level">State or province of your college/university</label>
                             <div class="">
-                                    <select class="form-control" id="UnivState" name="UnivState"><option value="">-Select State or Province-</option>
+                                    <select class="form-control valid" id="UnivState" name="UnivState"><option value="">-Select State or Province-</option>
+                                        <option value=""></option>
                                         <option value="AB">AB</option>
                                         <option value="AK">AK</option>
                                         <option value="AL">AL</option>
@@ -545,17 +546,18 @@
                                         <option value="WI">WI</option>
                                         <option value="WV">WV</option>
                                         <option value="WY">WY</option>
-                                    </select>
+                                        <option value="XX">XX</option>
+                                        <option value="YK">YK</option>
+                                        </select>
                                 </div>
                         </div>
                     
                         <div>
                             <label for="UniversityName">Name of College/University</label>
-                            <div class="">
-                                    <select class="form-control inr_wide" data-val="true" data-val-number="The field UniversityID must be a number." data-val-rangeif="College / University is required" data-val-rangeif-dependentproperty="EducationStatus" data-val-rangeif-rule="range" data-val-rangeif-ruleparam="[1,999999]" 
-                                        data-val-rangeif-targetvalue="College Student" data-val-required="The UniversityID field is required." id="UniversityID" name="UniversityID">
-                                        <option selected="selected" value="0"></option>
+                            <div class="col-md-4">
+                                    <select class="form-control inr_wide" data-val="true" data-val-number="The field UniversityID must be a number." data-val-rangeif="College / University is required" data-val-rangeif-dependentproperty="EducationStatus" data-val-rangeif-rule="range" data-val-rangeif-ruleparam="[1,999999]" data-val-rangeif-targetvalue="College Student" data-val-required="The UniversityID field is required." id="UniversityID" name="UniversityID"><option selected="selected" value="0"></option>
                                     </select>
+                                    <span id="univPleaseWait" style="display:none">Please wait...</span>
                                     <span class="field-validation-valid" data-valmsg-for="UniversityID" data-valmsg-replace="true"></span>
                                 </div>
                         </div>
