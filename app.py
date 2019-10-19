@@ -3,7 +3,7 @@ from flask import Flask, request, redirect, jsonify
 import os
 from werkzeug.utils import secure_filename
 import time
-import scanImage
+#import scanImage
 
 
 app = Flask(__name__, static_url_path='/static')
