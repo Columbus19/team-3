@@ -102,7 +102,7 @@ def login():
 
 @app.route('/contactmentor', methods=['GET'])
 def contactmentor():
-	return render_template("contact_mentor.html")
+	return render_template("test.html")
 
 @app.route('/student_login', methods=['GET'])
 def student_login():
