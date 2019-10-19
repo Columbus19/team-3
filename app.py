@@ -85,6 +85,17 @@ def alumniRegistration():
 def test():
 	return "<h1>testing hey</h1>"
 
+@app.route('/login', methods=['GET'])
+def login():
+	return render_template("login.html")
+
+
+@app.route('/student_login', methods=['GET'])
+def student_login():
+	return render_template("student_login.html")
+
+
+
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
 
